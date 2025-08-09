@@ -22,7 +22,7 @@ jobs:
     - name: compress
       run: tar zcvf librtlsdr_build_ubuntu-amd64_latest.tar.gz --directory=build/src --exclude=CMakeFiles --exclude=*.cmake --exclude=Makefile --exclude=rtl_app_ver.h .
     - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ubuntu_latest_build
         path: librtlsdr_build_ubuntu-amd64_latest.tar.gz
@@ -41,7 +41,7 @@ jobs:
     - name: compress
       run: tar zcvf librtlsdr_build_macos-latest.tar.gz --directory=build/src --exclude=CMakeFiles --exclude=*.cmake --exclude=Makefile --exclude=rtl_app_ver.h .
     - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: macos_latest_build
         path: librtlsdr_build_macos-latest.tar.gz
