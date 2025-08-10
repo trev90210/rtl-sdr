@@ -4,12 +4,18 @@ name: C/C++ CI
 on:
   push:
     branches: [ master, development, build ]
+    paths-ignore:
+      - 'docs/**'
+      - 'bin/**'
   pull_request:
     branches: [ master, development, build ]
+    paths-ignore:
+      - 'docs/**'
+      - 'bin/**'
 
 jobs:
   build_ubuntu-amd64_latest:
-    runs-on: [ ubuntu-latest, ubuntu-24.04-arm ]
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
