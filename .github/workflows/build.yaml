@@ -14,7 +14,7 @@ on:
       - 'bin/**'
 
 jobs:
-  job_matrix:
+  build_linux:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-24.04-arm ]
@@ -36,8 +36,11 @@ jobs:
         name: ${{ matrix.os }}_latest_build
         path: librtlsdr_build_.${{ matrix.os }}.tar.gz
 
-  build_macos_latest:
-    runs-on: macos-latest
+  build_macos:
+    strategy:
+      matrix:
+        os: [macos-latest, macos-13 ]
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
@@ -53,7 +56,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: macos_latest_build
-        path: librtlsdr_build_macos-latest.tar.gz
+        path: librtlsdr_build_.${{ matrix.os }}.tar.gz
 
   cross_build_win32_win64_latest:
     runs-on: ubuntu-latest
@@ -61,7 +64,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: prerequisites
-      run: sudo apt -qq update && sudo apt -yqq install gcc-mingw-w64
+      run: sudo apt -qq update && sudo apt -yqq install gcc-mingw-w64 mingw-w64-i686-dev mingw-w64-x86-64-dev mingw-w64-tools mingw-w64-common
     - name: build_w32_static
       run: bash ./cross_build_mingw32.sh static -DLINK_RTLTOOLS_AGAINST_STATIC_LIB=ON
     - name: build_w32_static_udpsrv
