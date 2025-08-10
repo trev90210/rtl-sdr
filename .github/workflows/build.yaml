@@ -33,8 +33,8 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
-        name: ubuntu_latest_build
-        path: librtlsdr_build_ubuntu-amd64_latest.tar.gz
+        name: ${{ matrix.os }}_latest_build
+        path: librtlsdr_build_.${{ matrix.os }}.tar.gz
 
   build_macos_latest:
     runs-on: macos-latest
