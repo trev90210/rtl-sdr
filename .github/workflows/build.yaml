@@ -55,7 +55,7 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
-        name: macos_latest_build
+        name: ${{ matrix.os }}_latest_build
         path: librtlsdr_build_.${{ matrix.os }}.tar.gz
 
   cross_build_win32_win64_latest:
