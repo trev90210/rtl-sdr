@@ -4,13 +4,13 @@ on:
   - push
   - pull_request
   - workflow_dispatch
-branches:
-  - master
-  - development
-  - build
-paths-ignore:
-  - docs/**
-  - bin/**
+  branches:
+    - master
+    - development
+    - build
+  paths-ignore:
+    - docs/**
+    - bin/**
 jobs:
   build_linux:
     strategy:
