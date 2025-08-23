@@ -1,17 +1,17 @@
 
 name: C/C++ CI
 
-on: [ push, pull_request, workflow_dispatch ]
-#  push:
+on:
+  push:
     branches: [ master, development, build ]
     paths-ignore:
       - 'docs/**'
       - 'bin/**'
-#  pull_request:
-#    branches: [ master, development, build ]
-#    paths-ignore:
-#      - 'docs/**'
-#      - 'bin/**'
+  pull_request:
+    branches: [ master, development, build ]
+    paths-ignore:
+      - 'docs/**'
+      - 'bin/**'
 
 jobs:
   build_linux:
