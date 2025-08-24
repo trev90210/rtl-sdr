@@ -67,7 +67,8 @@ jobs:
       - name: prerequisites
         run: sudo apt -qq update && sudo apt -yqq install gcc-mingw-w64
           mingw-w64-i686-dev mingw-w64-x86-64-dev mingw-w64-tools
-          mingw-w64-common libpthread-stubs0-dev libusb-dev libusb-1.0-0-dev
+          mingw-w64-common libpthread-stubs0-dev libusb-dev libusb-1.0-0-dev &&
+          find / -name '*pthread*'
       - name: build_w32_static
         run: bash ./cross_build_mingw32.sh static -DLINK_RTLTOOLS_AGAINST_STATIC_LIB=ON
       - name: build_w32_static_udpsrv
