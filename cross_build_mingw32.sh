@@ -15,6 +15,7 @@ shift
 CROSS="i686-w64-mingw32"
 WN="w32"
 TOOLCHAIN="mingw-w32-i686.cmake"
+set(CMAKE_FIND_DEBUG_MODE TRUE)
 
 # libusb
 if /bin/true; then
