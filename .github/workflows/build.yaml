@@ -64,6 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       THREADS_USE_PTHREADS_WIN32: true
+      CMAKE_FIND_DEBUG_MODE: TRUE
     steps:
       - uses: actions/checkout@v4
       - name: prerequisites
