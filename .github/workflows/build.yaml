@@ -20,6 +20,7 @@ on:
 jobs:
   build_linux:
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
@@ -61,6 +62,8 @@ jobs:
           name: ${{ matrix.os }}_latest_build
           path: librtlsdr_build_${{ matrix.os }}.tar.gz
   cross_build_win32_win64_latest:
+    strategy:
+      fail-fast: false
     runs-on: ubuntu-latest
     env:
       THREADS_USE_PTHREADS_WIN32: true
