@@ -27,7 +27,7 @@ jobs:
           - ubuntu-24.04-arm
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: prerequisites
         run: sudo apt -qq update && sudo apt -yqq install libusb-1.0-0-dev
       - name: cmake_make
@@ -46,7 +46,7 @@ jobs:
       matrix:
         os:
           - macos-latest
-          - macos-13
+          - macos-15-intel
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
