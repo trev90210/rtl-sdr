@@ -173,7 +173,7 @@ jobs:
     - name: package and upload
       uses: actions/upload-artifact@v4
       with:
-        name: rtl-sdr-blog_dist
+        name: mutability_rtl-sdr_dist
         path: |
             dist/lib/rtlsdr.lib
             dist/bin
