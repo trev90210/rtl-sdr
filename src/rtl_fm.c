@@ -65,7 +65,7 @@
 #include <io.h>
 #include "getopt/getopt.h"
 #define usleep(x) Sleep(x/1000)
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && (_MSC_VER < 1800)
 #define round(x) (x > 0.0 ? floor(x + 0.5): ceil(x - 0.5))
 #endif
 #define _USE_MATH_DEFINES
@@ -297,13 +297,11 @@ int cic_9_tables[][10] = {
 	{9, -199, -362, 5303, -25505, 77489, -25505, 5303, -362, -199},
 };
 
-#ifdef _MSC_VER
-#if (_MSC_VER < 1932)
+#if defined(_MSC_VER) && (_MSC_VER < 1800)
 double log2(double n)
 {
 	return log(n) / log(2.0);
 }
-#endif
 #endif
 
 void rotate_90(unsigned char *buf, uint32_t len)
