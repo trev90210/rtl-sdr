@@ -257,10 +257,12 @@ int cic_9_tables[][10] = {
 };
 
 #ifdef _MSC_VER
+#if (_MSC_VER < 1932)
 double log2(double n)
 {
 	return log(n) / log(2.0);
 }
+#endif
 #endif
 
 /* FFT based on fix_fft.c by Roberts, Slaney and Bouras
