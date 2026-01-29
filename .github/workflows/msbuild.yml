@@ -1,16 +1,17 @@
+
 name: msbuild
 
 on:
   workflow_dispatch:
   # Trigger the workflow on push or pull request - but only for the main branch
   push:
-    branches:
-      - master
-    tags-ignore:
-      - 'v*'
+    paths-ignore:
+      - docs/**
+      - bin/**
   pull_request:
-    branches:
-      - master
+    paths-ignore:
+      - docs/**
+      - bin/**
 
 defaults:
   run:
@@ -23,14 +24,13 @@ env:
 jobs:
   build-on-windows:
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    # windows-latest or windows-2022 fail!?
+
     runs-on: windows-2025
 
     steps:
     - name: install
       run: |
           choco install wget innoextract --no-progress
-
 
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -102,11 +102,16 @@ jobs:
         mkdir ${{github.workspace}}/build
         ## cd ${{github.workspace}}/build
         ls
-        cmake -B build_rtl-sdr -S . -A x64 -DCMAKE_BUILD_TYPE=Release --fresh  `
+        cmake -B build_rtl-sdr -S . -A x64 -DCMAKE_BUILD_TYPE=Release --fresh `
               -DLIBUSB_LIBRARIES=${{runner.workspace}}/libusb/build/v143/x64/Release/dll/libusb-1.0.lib `
+              -DLIBUSB_PKG_LIBRARY_DIRS=${{runner.workspace}}/libusb/build/v143/x64/Release/dll/libusb-1.0.lib  `
               -DLIBUSB_INCLUDE_DIRS=${{runner.workspace}}/libusb/libusb `
+              -DLIBUSB_INCLUDE_DIR=${{runner.workspace}}/libusb/libusb `
               -DTHREADS_PTHREADS_INCLUDE_DIR=${{runner.workspace}}/pthread-win32 `
-              -DTHREADS_PTHREADS_LIBRARY=${{runner.workspace}}/pthread-win32/shared/lib/pthreadVC3.lib 
+              -DTHREADS_PTHREADS_LIBRARY=${{runner.workspace}}/pthread-win32/shared/lib/pthreadVC3.lib `
+              -DTHREADS_PTHREADS_WIN32_LIBRARY=${{runner.workspace}}/pthread-win32/shared/lib/pthreadVC3.lib `
+              -DCMAKE_THREAD_LIBS_INIT=${{runner.workspace}}/pthread-win32/shared/lib/pthreadVC3.lib 
+              ## --log-level=DEBUG --trace-expand --debug-find 
 
     - name: List rtlsdr 1
       run: |
@@ -169,7 +174,7 @@ jobs:
     - name: package and upload
       uses: actions/upload-artifact@v4
       with:
-        name: osmocom_rtl-sdr_dist
+        name: rtl-sdr-blog_dist
         path: |
             dist/lib/rtlsdr.lib
             dist/bin
@@ -179,9 +184,3 @@ jobs:
             README
             # ${{ runner.workspace }}/libusb/build/v143/x64/Release/dll/*.dll
             # ${{ runner.workspace }}/pthread-win32/shared/bin
-
-
-
-
-
-

@@ -1,20 +1,13 @@
----
+
+
 name: C/C++ CI
 on:
   workflow_dispatch:
   push:
-    branches:
-      - master
-      - development
-      - build
     paths-ignore:
       - docs/**
       - bin/**
   pull_request:
-    branches:
-      - master
-      - development
-      - build
     paths-ignore:
       - docs/**
       - bin/**
