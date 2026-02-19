@@ -27,8 +27,11 @@ jobs:
       - name: cmake_make
         run: mkdir build && cmake -S . -B build && cd build && make
       - name: compress
-        run: tar zcvf librtlsdr_build_${{ matrix.os }}.tar.gz --directory=build/src
-          --exclude=CMakeFiles --exclude=*.cmake --exclude=Makefile
+        run: tar zcvf librtlsdr_build_${{ matrix.os }}.tar.gz \
+          --directory=build/src \
+          --exclude=CMakeFiles \
+          --exclude=*.cmake \
+          --exclude=Makefile \
           --exclude=rtl_app_ver.h .
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -47,8 +50,8 @@ jobs:
       - name: cmake_make
         run: mkdir build && cmake -S . -B build && cd build && make
       - name: compress
-        run: tar zcvf librtlsdr_build_${{ matrix.os }}.tar.gz --directory=build/src
-          --exclude=CMakeFiles --exclude=*.cmake --exclude=Makefile
+        run: tar zcvf librtlsdr_build_${{ matrix.os }}.tar.gz --directory=build/src \
+          --exclude=CMakeFiles --exclude=*.cmake --exclude=Makefile \
           --exclude=rtl_app_ver.h .
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -65,14 +68,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: prerequisites
-        run: sudo apt -qq update && sudo apt -yqq install gcc-mingw-w64
-          mingw-w64-i686-dev mingw-w64-x86-64-dev mingw-w64-tools
-          mingw-w64-common libpthread-stubs0-dev libusb-dev libusb-1.0-0-dev
+        run: sudo apt -qq update && sudo apt -yqq install gcc-mingw-w64 \
+          mingw-w64-i686-dev mingw-w64-x86-64-dev mingw-w64-tools \
+          mingw-w64-common libpthread-stubs0-dev libusb-dev libusb-1.0-0-dev \
           && sudo find / -name '*pthread*' && sudo find / -name 'libusb*' 
       - name: build_w32_static
         run: bash ./cross_build_mingw32.sh static -DLINK_RTLTOOLS_AGAINST_STATIC_LIB=ON
       - name: build_w32_static_udpsrv
-        run: bash ./cross_build_mingw32.sh static_udpsrv
+        run: bash ./cross_build_mingw32.sh static_udpsrv \
           -DLINK_RTLTOOLS_AGAINST_STATIC_LIB=ON -DPROVIDE_UDP_SERVER=ON
       - name: build_w32_dlldep
         run: bash ./cross_build_mingw32.sh dlldep
@@ -81,7 +84,7 @@ jobs:
       - name: build_w64_static
         run: bash ./cross_build_mingw64.sh static -DLINK_RTLTOOLS_AGAINST_STATIC_LIB=ON
       - name: build_w64_static_udpsrv
-        run: bash ./cross_build_mingw64.sh static_udpsrv
+        run: bash ./cross_build_mingw64.sh static_udpsrv \
           -DLINK_RTLTOOLS_AGAINST_STATIC_LIB=ON -DPROVIDE_UDP_SERVER=ON
       - name: build_w64_dlldep
         run: bash ./cross_build_mingw64.sh dlldep
